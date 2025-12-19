@@ -1,10 +1,16 @@
+// Pick a random element from an array
+function selectRandomArray(array) {
+  if (!array || array.length === 0) return undefined;
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
+}
+
 // Waits for minutes ending in 8, then runs the callback
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
 
   if (isDebug) {
-    // run immediately in debug mode
     callback();
     return;
   }
@@ -12,8 +18,6 @@ function waitForEightMinute(callback) {
   function checkTime() {
     const now = new Date();
     const minute = now.getMinutes();
-
-    // minutes ending in 8: 08, 18, 28, 38, 48, 58
     if (minute % 10 === 8) {
       callback();
     } else {
@@ -24,17 +28,18 @@ function waitForEightMinute(callback) {
   checkTime();
 }
 
-// Main function that starts the full show sequence
+// Main function to start the show
 function startShow() {
-  preLoadMusic();       // load music and background assets
-  setMainBackground();   // set initial background
-  resizeWindow();        // scale window for the frame
-  checkStandbyMode();    // check standby mode if enabled
-  executeGreetingPage(); // start the greeting → timeline sequence
+  preLoadMusic();
+  setMainBackground();
+  resizeWindow();
+  checkStandbyMode();
+  executeGreetingPage();
 }
 
-// Run the show at the next "8-minute" mark (or immediately in debug mode)
+// Run at next "8-minute" mark
 waitForEightMinute(startShow);
+
 
 // ---------------------------
 // Your other existing functions go here, like:
