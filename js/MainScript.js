@@ -1,3 +1,4 @@
+// Waits for minutes ending in 8, then runs the callback
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
@@ -22,6 +23,25 @@ function waitForEightMinute(callback) {
 
   checkTime();
 }
+
+// Main function that starts the full show sequence
+function startShow() {
+  preLoadMusic();       // load music and background assets
+  setMainBackground();   // set initial background
+  resizeWindow();        // scale window for the frame
+  checkStandbyMode();    // check standby mode if enabled
+  executeGreetingPage(); // start the greeting → timeline sequence
+}
+
+// Run the show at the next "8-minute" mark (or immediately in debug mode)
+waitForEightMinute(startShow);
+
+// ---------------------------
+// Your other existing functions go here, like:
+// preLoadMusic(), setMainBackground(), resizeWindow(), 
+// checkStandbyMode(), executeGreetingPage(), schedulePages(), etc.
+// ---------------------------
+
 // Preset timeline sequences
 const MORNING = [
   {
