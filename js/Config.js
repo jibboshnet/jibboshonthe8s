@@ -1,49 +1,20 @@
 window.CONFIG = {
-  crawl: `You're watching Kmart News Network! The Weather Channel is America's #1 Weather Network. Trusted. Reliable. Accurate.`,
+  crawl: `You are Watching JibboshTV, Canada's Least Trusted TV Weather channel, Located in New Brunswick, Canada!`,
   // crawl: `Funny Seasonal Message!`,
   greetings: [
-    "Currently In<br>Our Area",
-    "Two Storm Fronts<br>Walk Into A Millibar",
-    "Is Your Phone Technically<br>A Super Cell?",
-    "This Forecast Approved By Jackenstein!<br>🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃",
-    "Just Because It's Hot<br>Doesn't Mean It's HOTTOGO",
-    "Not So<br>IntelliSTAR",
-    "If It's Raining We Become<br>The Wetter Channel",
-    "A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning<br>A Hurricane Warning",
-    "OOPS!<br>All Weather.",
-    "Now Cueing<br>domestic/azul",
-    "Trans Rights<br>Are Human Rights",
-    "This Forecast is<br>Skibidi Rizz Fanum Tax",
-    "Look Ma!<br>I'm On TV!",
-    "Would You Like<br>A Free Storm?",
-    "I Like My Eggs<br>Sunny Side Up",
-    "Roses are Red, Violets are Blue<br>Here's Your Weather, Now STFU",
-    "IT'S RAINING MEN<br>HALLELUJAH",
-    "Put The Weather<br>In The Bag!",
-    "Insert Joke Here<br>Bottom Text",
-    "Can We Have Hatsune Miku<br>Host The Weather Channel?",
-    "No Mom,<br>We're Not There Yet",
-    "The Damn Weather<br>Machine Broke Again",
-    "Please Stop Putting The<br>Weather Machine On Seven",
-    "Don't worry, we don't bite,<br>The same can't be said for Jim Cantore though...",
-    "Powered By<br>Hopes and Dreams",
-    "Tactical Forecast Incoming!<br>Take Cover!",
-    "🗣️🗣️🗣️Current In<br>Our Area🗣️🗣️🗣️",
-    "Also Check Out<br>discord.gg/weatherranch!",
-    "Hazy, Hot, and Humid!<br>🥵🥵🥵🥵🥵🥵🥵🥵🥵🥵🥵🥵🥵",
-    "We Have VizRT<br>At Home.",
+    "Bazinga!",
   ],
   volume: {
     voice: 1,
-    music: 0.5,
-    musicRed: 0.5,
-    musicDuck: 0.15,
-    musicRedDuck: 0.15,
+    music: 0,
+    musicRed: 0,
+    musicDuck: 0,
+    musicRedDuck: 0,
     jingle: 0.25
   },
   language: "en-US", // Supported in TWC API
   countryCode: "US", // Supported in TWC API (for postal key)
-  units: "e", // Supported in TWC API (e = English (imperial), m = Metric, h = Hybrid (UK)),
+  units: "m", // Supported in TWC API (e = English (imperial), m = Metric, h = Hybrid (UK)),
   unitField: "imperial", // Supported in TWC API. This field will be filled in automatically. (imperial = e, metric = m, uk_hybrid = h)
   loop: false,
   standbyMode: false,
@@ -94,74 +65,20 @@ window.CONFIG = {
     "assets/music/red/red_winter_1.mp3",
   ],
   mainBackgrounds: [
-    /* Generic Backgrounds */
-    "assets/backgrounds/TWC_Kmart.png",
-    // "https://i.imgur.com/V41pDkt.jpeg",
-    // "https://i.imgur.com/U5rQOJD.jpeg",
-    // "https://i.imgur.com/F25Xbv3.jpeg",
-    // "https://i.imgur.com/uDZEzSf.jpeg",
-    // "https://i.imgur.com/J2W7c7i.jpeg",
-    "assets/backgrounds/FreakyChannel.png",
-
-    /* Spring Backgrounds */
-    // "assets/backgrounds/LOT8Spring2025-1.png",
-    // "assets/backgrounds/LOT8Spring2025-2.png",
-
-    /* Winter Backgrounds */
-    // "assets/backgrounds/WinterBG_1.png",
-    // "assets/backgrounds/WinterBG_2.png",
-    // "assets/backgrounds/WinterBG_3.png",
-
-    /* Hurricane Backgrounds */
-    "assets/backgrounds/HurricaneBlue.png",
-
-    /* XMas Background */
-    // "https://i.imgur.com/w223SHG.jpeg"
-  ],
+    "https://jibboshtvfiles.jibbosh.com/bg/Holidays.png"
   redModeBackgrounds: [
-    /* Legacy Red Mode */
-    // "https://i.imgur.com/qifw2Se.jpeg",
-    // "https://i.imgur.com/mvc9y58.jpeg",
-    // "https://i.imgur.com/EvPe49F.jpeg",
-    // "https://i.imgur.com/eGZ4EtJ.jpeg",
-
-    /* Current Red Mode */
-    "assets/backgrounds/SevereRed1.png",
-    "assets/backgrounds/SevereRed2.png",
-    "assets/backgrounds/SevereRed3.png",
-    "assets/backgrounds/FreakyChannelRed.png",
-  ],
+    "https://jibboshtvfiles.jibbosh.com/bg/Red Mode.png"
   subRedModeBackgrounds: [
-    /* Legacy Sub-Red Mode */
-    // "https://i.imgur.com/HP5NCFW.jpeg",
-    // "https://i.imgur.com/cbQPlEP.jpeg",
-    // "https://i.imgur.com/oZFV8ew.jpeg",
-    // "https://i.imgur.com/zI68plR.jpeg",
-
-    /* Current Red Mode */
-    "assets/backgrounds/Severe1.png",
-    "assets/backgrounds/Severe2.png",
-    "assets/backgrounds/Severe3.png",
-    "assets/backgrounds/FreakyChannelRed.png",
+   "https://jibboshtvfiles.jibbosh.com/bg/Red Mode.png"
   ],
   hurricaneBackgrounds: [
-    "assets/backgrounds/FreakyChannelRed.png",
-    "assets/backgrounds/Hurricane_Central_i2_xD.png",
-    "assets/backgrounds/HurricaneRedMode.png",
-    "assets/backgrounds/HurricaneRed1.png",
-    "assets/backgrounds/HurricaneRed2.png",
-    "assets/backgrounds/HurricaneRed3.png",
+  "assets/backgrounds/Hurricane_Central_i2_xD.png"
   ],
   winterStormBackgrounds: [
     "assets/backgrounds/WinterRedBG_1.png",
-    "assets/backgrounds/WinterRedBG_1.png",
-    "assets/backgrounds/WinterRedBG_1.png",
-    // "https://i.imgur.com/gSNIkl0.jpeg",
   ],
   productionModeAssets: [
-    "assets/backgrounds/FreakyChannelRed.png",
-    "assets/backgrounds/FreakyChannel.png",
-    "assets/backgrounds/TWC_Kmart.png"
+  "https://jibboshtvfiles.jibbosh.com/bg/Red Mode.png"
   ],
 
   // Config Functions (index.html settings manager)
