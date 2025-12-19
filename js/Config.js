@@ -94,7 +94,7 @@ window.CONFIG = {
   ],
 
   // ============================
-  // SETTINGS SYSTEM (UNCHANGED)
+  // SETTINGS SYSTEM
   // ============================
 
   options: [],
@@ -115,56 +115,21 @@ window.CONFIG = {
         ? "uk_hybrid"
         : "imperial";
 
-    // Fetch using airport
+    // Fetch immediately
     fetchCurrentWeather(airportCode);
 
-    // Force display name AFTER render
+    // Force display name after render
     setTimeout(forceAirportDisplayName, 500);
   },
 
   load: () => {
-    let settingsPrompt = getElement("settings-prompt");
-    let zipContainer = getElement("zip-container");
-    let advancedSettingsOptions = getElement("advanced-settings-options");
-
-    CONFIG.options.forEach((option) => {
-      let label = document.createElement("div");
-      label.classList.add("strong-text", "settings-item", "settings-text");
-      label.appendChild(document.createTextNode(option.name));
-      label.id = `${option.id}-label`;
-
-      let textbox = document.createElement("input");
-      textbox.classList.add("settings-item", "settings-text", "settings-input");
-      textbox.type = "text";
-      textbox.placeholder = option.desc;
-      textbox.id = `${option.id}-text`;
-
-      if (localStorage.getItem(option.id)) {
-        textbox.value = localStorage.getItem(option.id);
-      }
-
-      let br = document.createElement("br");
-
-      advancedSettingsOptions.appendChild(label);
-      advancedSettingsOptions.appendChild(textbox);
-      advancedSettingsOptions.appendChild(br);
-    });
-
-    let btn = document.createElement("button");
-    btn.classList.add("setting-item", "settings-text", "settings-input", "button");
-    btn.id = "submit-button";
-    btn.onclick = CONFIG.submit;
-    btn.appendChild(document.createTextNode("Start"));
-    settingsPrompt.appendChild(btn);
-
-    if (CONFIG.loop || CONFIG.standbyMode) {
+    // Hide settings UI if present
+    if (typeof hideSettings === "function") {
       hideSettings();
-      CONFIG.submit();
     }
 
-    if (getQueryVariable(`autorun`) == "true") {
-      CONFIG.submit();
-    }
+    // 🔥 AUTOSTART — NO BUTTON
+    CONFIG.submit();
   },
 };
 
