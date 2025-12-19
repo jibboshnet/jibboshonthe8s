@@ -1,16 +1,17 @@
-// Pick a random element from an array
-function selectRandomArray(array) {
-  if (!array || array.length === 0) return undefined;
-  const index = Math.floor(Math.random() * array.length);
-  return array[index];
+// Helper: pick a random element from an array
+function selectRandomArray(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return null;
+  const index = Math.floor(Math.random() * arr.length);
+  return arr[index];
 }
 
-// Waits for minutes ending in 8, then runs the callback
+// Wait until minute ends in 8 (or debug mode)
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
 
   if (isDebug) {
+    console.log("Debug mode: running callback immediately.");
     callback();
     return;
   }
@@ -18,7 +19,9 @@ function waitForEightMinute(callback) {
   function checkTime() {
     const now = new Date();
     const minute = now.getMinutes();
+
     if (minute % 10 === 8) {
+      console.log("Minute ends in 8: running callback.");
       callback();
     } else {
       setTimeout(checkTime, 1000);
@@ -28,17 +31,35 @@ function waitForEightMinute(callback) {
   checkTime();
 }
 
-// Main function to start the show
-function startShow() {
-  preLoadMusic();
-  setMainBackground();
-  resizeWindow();
-  checkStandbyMode();
-  executeGreetingPage();
+// Example: preload music and backgrounds
+function preLoadMusic() {
+  music = new Audio(selectRandomArray(CONFIG.musicTracks));
+  musicRed = new Audio(selectRandomArray(CONFIG.redMusicTracks));
+
+  bgd = selectRandomArray(CONFIG.mainBackgrounds);
+  bgdRed = selectRandomArray(CONFIG.redModeBackgrounds);
+  bgdSubRed = selectRandomArray(CONFIG.subRedModeBackgrounds);
+  bgdHurricane = selectRandomArray(CONFIG.hurricaneBackgrounds);
+
+  // sanity check
+  if (!bgd || !bgdRed || !bgdSubRed || !bgdHurricane || !music || !musicRed) {
+    console.log("Failed to select one or more random assets. Rerolling!");
+    preLoadMusic();
+  }
 }
 
-// Run at next "8-minute" mark
+// Example start function
+function startShow() {
+  console.log("Starting the weather show sequence...");
+  preLoadMusic();
+  scheduleTimeline();
+  setMainBackground();
+  setInformation();
+}
+
+// Run the show with the 8-minute wait
 waitForEightMinute(startShow);
+
 
 
 // ---------------------------
