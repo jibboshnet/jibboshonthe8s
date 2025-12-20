@@ -13,26 +13,50 @@ function waitForEightMinute(callback) {
     return;
   }
 
-  function checkTime() {
+  let lastRunStamp = null;
+
+  function check() {
     const now = new Date();
     const minute = now.getMinutes();
+    const second = now.getSeconds();
 
-    if (minute % 10 === 8) {
-      console.log("8-minute mark reached — running callback");
-      callback();
-    } else {
-      // calculate ms until next 8-minute mark for efficiency
-      const nextEightMinute = new Date(now.getTime());
-      let minutesToAdd = (8 - (minute % 10) + 10) % 10; // 1–10 minutes ahead
-      if (minutesToAdd === 0) minutesToAdd = 10;
-      nextEightMinute.setMinutes(now.getMinutes() + minutesToAdd, 0, 0);
-      const delay = nextEightMinute - now;
-      setTimeout(checkTime, delay);
+    // HARD GATE: absolutely nothing runs unless minute % 10 === 8
+    if (minute % 10 !== 8) {
+      scheduleNextCheck(now);
+      return;
     }
+
+    // prevent multiple runs within the same 8-minute window
+    const stamp = `${now.getHours()}:${minute}`;
+    if (lastRunStamp === stamp) {
+      scheduleNextCheck(now);
+      return;
+    }
+
+    // Optional: require first few seconds of the minute
+    // prevents late wakeups from firing
+    if (second > 5) {
+      scheduleNextCheck(now);
+      return;
+    }
+
+    console.log("8-minute mark reached — running callback");
+    lastRunStamp = stamp;
+    callback();
+
+    scheduleNextCheck(now);
   }
 
-  checkTime();
+  function scheduleNextCheck(now) {
+    const next = new Date(now);
+    next.setSeconds(0, 0);
+    next.setMinutes(now.getMinutes() + 1);
+    setTimeout(check, next - now);
+  }
+
+  check();
 }
+
 
 
 // ============================
