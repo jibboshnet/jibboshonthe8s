@@ -3,7 +3,7 @@
 // ============================
 let timeZone = "America/Toronto"; // Quebec City timezone
 let airportCode = "YQB";                 // Airport data source
-let airportDisplayName = "Quebec City";  // Forced display name
+let airportDisplayName = "Ye Old Quebec City";  // Forced display name
 let zipCode = null;
 
 // ============================
@@ -23,7 +23,7 @@ window.CONFIG = {
     musicRed: 0,
     musicDuck: 0,
     musicRedDuck: 0,
-    jingle: 0.25
+    jingle: 0
   },
 
   language: "en-US",
