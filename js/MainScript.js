@@ -553,8 +553,9 @@ function playCurrentConditionsVoice(
     voice.src = `assets/narrations/temps/very_cold.wav`;
   } 
   else if (t < 0) {
-    voice.src = `assets/narrations/temps/M${Math.abs(t)}.wav`;
-  } 
+    const cleanTemp = String(temp).replace("-", "");
+    voice.src = `assets/narrations/temps/M${cleanTemp}.wav`;
+}
   else if (t === 0) {
     voice.src = `assets/narrations/temps/Zeros.wav`;
   } 
