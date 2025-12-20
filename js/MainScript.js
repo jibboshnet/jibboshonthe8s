@@ -544,17 +544,26 @@ function playCurrentConditionsVoice(
   voice.volume = volIntro;
   voice.play();
   voice.onended = function () {
-    if (temp >= 140) {
-      voice.src = `assets/narrations/temps/very_hot.wav`;
-    } else if (temp <= -100) {
-      voice.src = `assets/narrations/temps/very_cold.wav`;
-    } else if (temp < 0) {
-      voice.src = `assets/narrations/temps/M${temp}.wav`;
-    } else if (temp == 0) {
-      voice.src = `assets/narrations/temps/Zeros.wav`
-    }else {
-      voice.src = `assets/narrations/temps/${temp}.wav`;
-    }
+  const t = Number(temp); // ensure it's a number
+
+  if (t >= 40) {
+    voice.src = `assets/narrations/temps/very_hot.wav`;
+  } 
+  else if (t <= -30) {
+    voice.src = `assets/narrations/temps/very_cold.wav`;
+  } 
+  else if (t < 0) {
+    voice.src = `assets/narrations/temps/M${Math.abs(t)}.wav`;
+  } 
+  else if (t === 0) {
+    voice.src = `assets/narrations/temps/Zeros.wav`;
+  } 
+  else {
+    voice.src = `assets/narrations/temps/${t}.wav`;
+  }
+};
+
+
     voice.volume = volTemp;
     voice.play();
     voice.onended = function () {
