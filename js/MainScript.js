@@ -1,3 +1,8 @@
+function getQueryVariable(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
