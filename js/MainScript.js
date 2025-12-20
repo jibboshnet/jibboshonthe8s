@@ -1,18 +1,8 @@
-// Helper function to read URL query parameters
-function getQueryVariable(variable) {
-  const params = new URLSearchParams(window.location.search);
-  return params.get(variable); // returns null if not found
-}
-
-// ============================
-// Wait for 8-minute mark (or debug mode)
-// ============================
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
 
   if (isDebug) {
-    // Run immediately in debug mode
     console.log("Debug mode active — running callback immediately");
     callback();
     return;
@@ -22,17 +12,23 @@ function waitForEightMinute(callback) {
     const now = new Date();
     const minute = now.getMinutes();
 
-    // minutes ending in 8: 08, 18, 28, 38, 48, 58
     if (minute % 10 === 8) {
       console.log("8-minute mark reached — running callback");
       callback();
     } else {
-      setTimeout(checkTime, 1000); // check again in 1 second
+      // calculate ms until next 8-minute mark for efficiency
+      const nextEightMinute = new Date(now.getTime());
+      let minutesToAdd = (8 - (minute % 10) + 10) % 10; // 1–10 minutes ahead
+      if (minutesToAdd === 0) minutesToAdd = 10;
+      nextEightMinute.setMinutes(now.getMinutes() + minutesToAdd, 0, 0);
+      const delay = nextEightMinute - now;
+      setTimeout(checkTime, delay);
     }
   }
 
   checkTime();
 }
+
 
 // ============================
 // Preload music/background (fixed first item)
