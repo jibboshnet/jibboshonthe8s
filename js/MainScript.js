@@ -7,11 +7,6 @@ function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
 
-  console.group("waitForEightMinute init");
-  console.log("URL:", window.location.href);
-  console.log("Debug flag:", isDebug);
-  console.groupEnd();
-
   if (isDebug) {
     console.warn("DEBUG MODE — callback forced immediately");
     callback();
@@ -20,72 +15,63 @@ function waitForEightMinute(callback) {
 
   let lastRunStamp = null;
 
-  function check(reason = "initial") {
+  function check() {
     const now = new Date();
-
-    const data = {
-      reason,
-      time: now.toISOString(),
-      local: now.toString(),
-      hour: now.getHours(),
-      minute: now.getMinutes(),
-      second: now.getSeconds(),
-      ms: now.getMilliseconds(),
-      minuteMod10: now.getMinutes() % 10,
-      lastRunStamp
-    };
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
 
     console.group("waitForEightMinute check");
-    console.table(data);
+    console.log("Time now:", now.toString());
+    console.log("Minute:", minute, "Second:", second);
+    console.log("Last run stamp:", lastRunStamp);
 
-    // ABSOLUTE GATE #1
-    if (data.minuteMod10 !== 8) {
-      console.warn("❌ BLOCKED: minute % 10 !== 8");
+    // ABSOLUTE BLOCK: only run at 8-minute marks
+    if (minute % 10 !== 8) {
+      console.warn("❌ Not an 8-minute mark. Rescheduling.");
       console.groupEnd();
-      scheduleNext(now, "minute mismatch");
+      scheduleNext(now);
       return;
     }
 
-    // ABSOLUTE GATE #2
-    const stamp = `${data.hour}:${data.minute}`;
+    const stamp = `${now.getHours()}:${minute}`;
     if (lastRunStamp === stamp) {
-      console.warn("❌ BLOCKED: already ran this minute");
+      console.warn("❌ Already ran this minute. Rescheduling.");
       console.groupEnd();
-      scheduleNext(now, "duplicate minute");
+      scheduleNext(now);
       return;
     }
 
-    // ABSOLUTE GATE #3
-    if (data.second > 3) {
-      console.warn("❌ BLOCKED: too late in minute (>3s)");
+    // optional: allow only very start of minute to prevent late wakeups
+    if (second > 2) {
+      console.warn("❌ Too late in 8-minute mark. Skipping.");
       console.groupEnd();
-      scheduleNext(now, "late execution");
+      scheduleNext(now);
       return;
     }
 
-    console.log("✅ ALL GATES PASSED — CALLBACK EXECUTING");
+    console.log("✅ Running callback!");
     lastRunStamp = stamp;
-
     console.groupEnd();
     callback();
 
-    scheduleNext(now, "post execution");
+    scheduleNext(now);
   }
 
-  function scheduleNext(now, why) {
+  function scheduleNext(now) {
     const next = new Date(now);
-    next.setSeconds(0, 0);
-    next.setMinutes(now.getMinutes() + 1);
 
-    const delay = next - now;
+    // find next 8-minute mark
+    let nextMinute = now.getMinutes();
+    nextMinute = nextMinute - (nextMinute % 10) + 8; // next 8,18,28,...
+    if (nextMinute <= now.getMinutes()) {
+      // if already past this hour’s 8, go to next 10-min interval
+      nextMinute += 10;
+    }
 
-    console.log("⏭ Scheduling next check", {
-      why,
-      next: next.toString(),
-      delayMs: delay
-    });
+    next.setMinutes(nextMinute, 0, 0); // 0 seconds, 0 ms
+    console.log("⏭ Next check scheduled at:", next.toString());
 
-    setTimeout(() => check(why), delay);
+    setTimeout(check, next - now);
   }
 
   check();
