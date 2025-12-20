@@ -1,5 +1,24 @@
+#timeline-container {
+  display: none;
+}
+
+html, body {
+  overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / old Edge (also helps OBS) */
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Edge, Safari, OBS (CEF) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
 body{
-  background-color: black;
+  background-color: transparent;
 }
 
 ::selection {
@@ -23,9 +42,7 @@ body{
   width: 1920px;
   height: 1080px;
   transform-origin: 50% 50%;
-  background: #1b2b4b; /* Old browsers */
-  background: url("../assets/backgrounds/nemoGradient.png")
-  /* background: linear-gradient(to bottom, #1b2b4b 0%,#8ba5c3 100%); */
+  background: transparent;
 }
 
 #content-container{
