@@ -1,3 +1,9 @@
+// Helper function to read URL query parameters
+function getQueryVariable(variable) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(variable); // returns null if not found
+}
+
 // ============================
 // Wait for 8-minute mark (or debug mode)
 // ============================
