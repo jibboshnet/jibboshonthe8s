@@ -269,10 +269,7 @@ function preLoadMusic() {
   bgdRed = CONFIG.redModeBackgrounds[0];
   bgdHurricane = CONFIG.hurricaneBackgrounds[0];
   // bgdRed = CONFIG.winterStormBackgrounds[selectRandomArray(CONFIG.winterStormBackgrounds)];
-  bgdSubRed =
-    CONFIG.subRedModeBackgrounds[
-      selectRandomArray(CONFIG.subRedModeBackgrounds)
-    ];
+    bgdSubRed = CONFIG.subRedModeBackgrounds[0];
 
   if (
     bgd == undefined ||
