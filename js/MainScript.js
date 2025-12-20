@@ -3,79 +3,43 @@ function getQueryVariable(name) {
   return params.get(name);
 }
 
+let lastRunStamp = null;
+
 function waitForEightMinute(callback) {
-  const params = new URLSearchParams(window.location.search);
-  const isDebug = params.has('debug');
-
-  if (isDebug) {
-    console.warn("DEBUG MODE — callback forced immediately");
-    callback();
-    return;
-  }
-
-  let lastRunStamp = null;
-
   function check() {
     const now = new Date();
     const minute = now.getMinutes();
     const second = now.getSeconds();
 
-    console.group("waitForEightMinute check");
-    console.log("Time now:", now.toString());
-    console.log("Minute:", minute, "Second:", second);
-    console.log("Last run stamp:", lastRunStamp);
-
-    // ABSOLUTE BLOCK: only run at 8-minute marks
     if (minute % 10 !== 8) {
-      console.warn("❌ Not an 8-minute mark. Rescheduling.");
-      console.groupEnd();
       scheduleNext(now);
       return;
     }
 
     const stamp = `${now.getHours()}:${minute}`;
     if (lastRunStamp === stamp) {
-      console.warn("❌ Already ran this minute. Rescheduling.");
-      console.groupEnd();
       scheduleNext(now);
       return;
     }
 
-    // optional: allow only very start of minute to prevent late wakeups
-    if (second > 2) {
-      console.warn("❌ Too late in 8-minute mark. Skipping.");
-      console.groupEnd();
-      scheduleNext(now);
-      return;
-    }
-
-    console.log("✅ Running callback!");
     lastRunStamp = stamp;
-    console.groupEnd();
     callback();
-
     scheduleNext(now);
   }
 
   function scheduleNext(now) {
     const next = new Date(now);
-
-    // find next 8-minute mark
     let nextMinute = now.getMinutes();
-    nextMinute = nextMinute - (nextMinute % 10) + 8; // next 8,18,28,...
-    if (nextMinute <= now.getMinutes()) {
-      // if already past this hour’s 8, go to next 10-min interval
-      nextMinute += 10;
-    }
+    nextMinute = nextMinute - (nextMinute % 10) + 8;
+    if (nextMinute <= now.getMinutes()) nextMinute += 10;
 
-    next.setMinutes(nextMinute, 0, 0); // 0 seconds, 0 ms
-    console.log("⏭ Next check scheduled at:", next.toString());
-
+    next.setMinutes(nextMinute, 0, 0);
     setTimeout(check, next - now);
   }
 
   check();
 }
+
 
 
 
