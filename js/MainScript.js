@@ -259,15 +259,15 @@ function toggleAdvancedSettings() {
 function preLoadMusic() {
   /* Sets a random track to play */
   // musicV2.replaceTrack(0, CONFIG.musicTracks[selectRandomArray(CONFIG.musicTracks)]);
-  music = new Audio(CONFIG.musicTracks[selectRandomArray(CONFIG.musicTracks)]);
-  musicRed = new Audio(CONFIG.redMusicTracks[selectRandomArray(CONFIG.redMusicTracks)]);
+  music = new Audio(CONFIG.musicTracks[0]);
+  musicRed = new Audio(CONFIG.redMusicTracks[0]);
 
 
-  bgd = CONFIG.mainBackgrounds[selectRandomArray(CONFIG.mainBackgrounds)];
+  bgd =CONFIG.mainBackgrounds[0];
   // bgdRed = CONFIG.redModeBackgrounds[selectRandomArray(CONFIG.redModeBackgrounds)];
 
-  bgdRed = CONFIG.redModeBackgrounds[selectRandomArray(CONFIG.redModeBackgrounds)];
-  bgdHurricane = CONFIG.hurricaneBackgrounds[selectRandomArray(CONFIG.hurricaneBackgrounds)];
+  bgdRed = CONFIG.redModeBackgrounds[0];
+  bgdHurricane = CONFIG.hurricaneBackgrounds[0];
   // bgdRed = CONFIG.winterStormBackgrounds[selectRandomArray(CONFIG.winterStormBackgrounds)];
   bgdSubRed =
     CONFIG.subRedModeBackgrounds[
