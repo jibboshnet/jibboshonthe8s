@@ -38,28 +38,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-   .logo-frame {
-  width: 96px;
-  height: 96px;
-  overflow: hidden;       /* hides the rest of the image */
-  position: relative;
-}
-
-#infobar-twc-logo {
-  position: absolute;
-  width: 500px;            /* original image width */
-  height: 500px;           /* original image height */
-  
-  /* Shift so the bottom-right 401x401 is in view */
-  left: -99px;             /* 500 - 401 = 99 */
-  top: -99px;              /* same for vertical */
-  
-  /* Scale down to fit 401x401 into 96x96 */
-  transform: scale(96 / 401);
-  transform-origin: top left; /* scale relative to top-left of shifted image */
-}
-</style>
 </head>
 
 <body>
@@ -69,10 +47,7 @@
 
     <!-- Top Information Bar -->
     <div id="infobar-container">
-      <div class="logo-frame" onclick="twcLogoClick();">
-  <img id="infobar-twc-logo" src="https://files.catbox.moe/eyow40.png" />
-</div>
-
+    <img id="infobar-twc-logo" src="https://files.catbox.moe/eyow40.png" onclick="twcLogoClick();" />
       <img id="infobar-local-logo" src="assets/logos/local.svg" />
       <div id="infobar-location-container" class="infobar-item-container">
         <div id="infobar-location-text" class="regular-text infobar-text"></div>
