@@ -559,9 +559,9 @@ function playCurrentConditionsVoice(
   else if (t === 0) {
     voice.src = `assets/narrations/temps/Zeros.wav`;
   } 
-  else {
-    voice.src = `assets/narrations/temps/${t}.wav`;
-  }
+  else if (t < 0) {
+  voice.src = `assets/narrations/temps/M${Math.abs(Number(temp))}.wav`;
+}
 };
 
 
