@@ -38,6 +38,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .cropped-logo {
+  width: 96px;
+  height: 96px;
+
+  /* Make the image fit the container */
+  object-fit: none;           /* Prevents scaling to fit entirely */
+  object-position: right bottom; /* Shows bottom-right portion */
+  
+  /* Optional: make sure overflow is hidden if inside a container */
+  /* display: block; */
+}
+</style>
 </head>
 
 <body>
@@ -47,7 +60,10 @@
 
     <!-- Top Information Bar -->
     <div id="infobar-container">
-      <img id="infobar-twc-logo" src="assets/logos/twc.svg" onclick="twcLogoClick();" />
+      <img id="infobar-twc-logo" 
+     src="https://files.catbox.moe/eyow40.png" 
+     onclick="twcLogoClick();" 
+     class="cropped-logo" />
       <img id="infobar-local-logo" src="assets/logos/local.svg" />
       <div id="infobar-location-container" class="infobar-item-container">
         <div id="infobar-location-text" class="regular-text infobar-text"></div>
