@@ -1,17 +1,13 @@
-// Helper: pick a random element from an array
-function selectRandomArray(arr) {
-  if (!Array.isArray(arr) || arr.length === 0) return null;
-  const index = Math.floor(Math.random() * arr.length);
-  return arr[index];
-}
-
-// Wait until minute ends in 8 (or debug mode)
+// ============================
+// Wait for 8-minute mark (or debug mode)
+// ============================
 function waitForEightMinute(callback) {
   const params = new URLSearchParams(window.location.search);
   const isDebug = params.has('debug');
 
   if (isDebug) {
-    console.log("Debug mode: running callback immediately.");
+    // Run immediately in debug mode
+    console.log("Debug mode active — running callback immediately");
     callback();
     return;
   }
@@ -20,45 +16,61 @@ function waitForEightMinute(callback) {
     const now = new Date();
     const minute = now.getMinutes();
 
+    // minutes ending in 8: 08, 18, 28, 38, 48, 58
     if (minute % 10 === 8) {
-      console.log("Minute ends in 8: running callback.");
+      console.log("8-minute mark reached — running callback");
       callback();
     } else {
-      setTimeout(checkTime, 1000);
+      setTimeout(checkTime, 1000); // check again in 1 second
     }
   }
 
   checkTime();
 }
 
-// Example: preload music and backgrounds
+// ============================
+// Preload music/background (fixed first item)
+// ============================
 function preLoadMusic() {
-  music = new Audio(selectRandomArray(CONFIG.musicTracks));
-  musicRed = new Audio(selectRandomArray(CONFIG.redMusicTracks));
+  const tracks = CONFIG.musicTracks;
+  const redTracks = CONFIG.redMusicTracks;
+  const mainBgs = CONFIG.mainBackgrounds;
+  const redBgs = CONFIG.redModeBackgrounds;
+  const subRedBgs = CONFIG.subRedModeBackgrounds;
+  const hurricaneBgs = CONFIG.hurricaneBackgrounds;
 
-  bgd = selectRandomArray(CONFIG.mainBackgrounds);
-  bgdRed = selectRandomArray(CONFIG.redModeBackgrounds);
-  bgdSubRed = selectRandomArray(CONFIG.subRedModeBackgrounds);
-  bgdHurricane = selectRandomArray(CONFIG.hurricaneBackgrounds);
-
-  // sanity check
-  if (!bgd || !bgdRed || !bgdSubRed || !bgdHurricane || !music || !musicRed) {
-    console.log("Failed to select one or more random assets. Rerolling!");
-    preLoadMusic();
+  // Check arrays
+  if (!tracks.length || !redTracks.length || !mainBgs.length || !redBgs.length || !subRedBgs.length || !hurricaneBgs.length) {
+    console.error("One or more asset arrays are empty. Cannot preload music/backgrounds!");
+    return;
   }
+
+  // Always select the first element
+  music = new Audio(tracks[0]);
+  musicRed = new Audio(redTracks[0]);
+
+  bgd = mainBgs[0];
+  bgdRed = redBgs[0];
+  bgdSubRed = subRedBgs[0];
+  bgdHurricane = hurricaneBgs[0];
+
+  console.log("Music and backgrounds loaded successfully!");
 }
 
-// Example start function
+// ============================
+// Start the show at 8-minute mark (or immediately if debug)
+// ============================
 function startShow() {
-  console.log("Starting the weather show sequence...");
   preLoadMusic();
-  scheduleTimeline();
-  setMainBackground();
-  setInformation();
+  // Here you can call other functions that start animations, weather crawl, etc.
+  console.log("Show started!");
 }
 
-// Run the show with the 8-minute wait
+// ============================
+// Kickoff
+// ============================
 waitForEightMinute(startShow);
+
 
 
 
