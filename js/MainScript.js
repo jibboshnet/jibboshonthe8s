@@ -579,7 +579,6 @@ function playCurrentConditionsVoice(
       };
     };
   };
-}
 
 function clearPage(pageIndex, subPageIndex) {
   var currentPage = pageOrder[pageIndex];
